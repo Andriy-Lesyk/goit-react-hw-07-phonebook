@@ -7,7 +7,7 @@ export const delet = createAction('contacts/delet')
 const entities = createReducer([], {
   [fetchContacts.fulfilled]: (_, action) => action.payload,
   [add]: (state, { payload }) => {
-      state.contacts.push(payload)
+      state.contacts.entities.push(payload)
   },
   [delet]: (state, { payload }) => {
       return {
