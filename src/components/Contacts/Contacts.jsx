@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Contacts, Contac, Btn } from './Contacts.styles';
-import { delet } from '../../redux/contacts/contactsReducer';
-import * as contactsOperations from '../../redux/contacts/contactsOperations';
+import {
+  deleteContacts,
+  fetchContacts,
+} from '../../redux/contacts/contactsOperations';
 
 function Contact() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(contactsOperations.fetchContacts());
+    dispatch(fetchContacts());
   }, [dispatch]);
 
   const contactsSelect = useSelector(state => state.contacts.entities);
   const filterSelect = useSelector(state => state.filter);
-    
+
   let contacts =
     filterSelect === ''
       ? contactsSelect
@@ -30,7 +32,14 @@ function Contact() {
               <span>
                 {name} : {number}
               </span>
-              <Btn onClick={() => dispatch(delet(id))}>Delete</Btn>
+              <Btn
+                onClick={async () => {
+                  await dispatch(deleteContacts(id));
+                  dispatch(fetchContacts());
+                }}
+              >
+                Delete
+              </Btn>
             </Contac>
           ))}
       </Contacts>

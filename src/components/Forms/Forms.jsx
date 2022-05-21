@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuId } from 'uuid';
 import { Input, Formm, Btn } from './Forms.styles';
-import { add } from '../../redux/contacts/contactsReducer';
+import { addContacts } from '../../redux/contacts/contactsOperations';
 
 export default function Form() {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export default function Form() {
 
     contCheck
       ? alert(`${name} is olready in contacts`)
-      : dispatch(add({ id, name, number }));
+      : dispatch(addContacts({ id, name, number }));
     resetForm();
   };
   const resetForm = () => {
